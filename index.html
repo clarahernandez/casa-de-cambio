@@ -5,11 +5,55 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Casa de Cambio</title>
         <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="estilos.css" />
     </head>
     <body>
-        <h2>Cargando...</h2>
-        <div id="respuesta">
-            <ul></ul>
+        <h1>CASA DE CAMBIO</h1>
+        <div class="container">
+            <div id="pantalla-inicial">
+                <form>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="dia">Día:</label>
+                            <input type="number" class="form-control" id="dia" />
+                        </div>
+                        <div class="form-group col">
+                            <label for="mes">Mes:</label>
+                            <input type="number" class="form-control" id="mes" />
+                        </div>
+                        <div class="form-group col">
+                            <label for="anio">Año:</label>
+                            <input type="number" class="form-control" id="anio" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="base">En base:</label>
+                        <select class="form-control" id="base">
+                            <option>USD</option>
+                            <option>EUR</option>
+                        </select>
+                    </div>
+                    <button type="button" class="btn btn-primary" id="boton-mostrar">
+                        Mostrar
+                    </button>
+                </form>
+            </div>
+
+            <div id="pantalla-cambio" class="oculto">
+                <h2>Cargando...</h2>
+                <div id="respuesta">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Moneda</th>
+                                <th scope="col">Valor</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="pantalla-error" class="oculto"></div>
         </div>
         <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
         <script src="src/index.js"></script>
