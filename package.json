@@ -1,0 +1,26 @@
+{
+  "name": "casa-de-cambio",
+  "version": "1.0.0",
+  "description": "Ejemplo de Casa de Cambio para r/Argentina Programa",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/clarahernandez/casa-de-cambio.git"
+  },
+  "author": "Clara Hernández",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/clarahernandez/casa-de-cambio/issues"
+  },
+  "homepage": "https://github.com/clarahernandez/casa-de-cambio#readme",
+  "dependencies": {
+    "bootstrap": "^4.5.0",
+    "jquery": "^3.5.1"
+  },
+  "devDependencies": {
+    "@types/jquery": "^3.3.38"
+  }
+}
