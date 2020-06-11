@@ -9,3 +9,22 @@ body {
 .oculto {
     display: none;
 }
+
+#pantalla-formulario {
+    margin: 5px;
+    padding: 20px 15px;
+    border: 1px solid rgb(165, 163, 163);
+    border-radius: 5px;
+}
+
+#error {
+    font-size: small;
+    padding: 10px 0px;
+    float: right;
+    color: #dc3545;
+}
+
+#pantalla-cambio {
+    margin: 5px;
+    padding: 20px 15px;
+}
