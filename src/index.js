@@ -1,11 +1,19 @@
 /// <reference types="jquery" />
 
-let dia = 30;
-let mes = 07;
-let anio = 2019;
-let base = 'USD';
-
 cargarOpcionesBase();
+$('#boton-mostrar').click(function () {
+    const anio = $('#anio').val();
+    const mes = $('#mes').val();
+    const dia = $('#dia').val();
+    const base = $('#base').val();
+
+    //TODO: true cambiar por función que haga las validaciones
+    if (true) {
+        limpiarPantallaCambios();
+        mostrarPantallaCambios();
+        mostrarCambios(anio, mes, dia, base);
+    }
+});
 
 function cargarOpcionesBase() {
     fetch('https://api.exchangeratesapi.io/latest')
@@ -14,18 +22,33 @@ function cargarOpcionesBase() {
             Object.keys(respuestaJSON.rates).forEach((moneda) => {
                 $('#base').append(`<option>${moneda}</option>`);
             });
-        });
+        })
+        .catch((error) => console.error('FALLÓ', error));
 }
-fetch(`https://api.exchangeratesapi.io/${anio}-${mes}-${dia}?base=${base}`)
-    .then((respuesta) => respuesta.json())
-    .then((respuestaJSON) => {
-        console.log(respuestaJSON);
-        $('h2').text(`Cambios del día ${respuestaJSON.date} en base ${respuestaJSON.base}`);
 
-        Object.keys(respuestaJSON.rates).forEach((moneda) => {
-            $('#respuesta').append(
-                `<tr><td>${moneda}</td> <td>${respuestaJSON.rates[moneda]}</td></tr>`
-            );
-        });
-    })
-    .catch((error) => console.error('FALLÓ', error));
+function mostrarCambios(anio, mes, dia, base) {
+    fetch(`https://api.exchangeratesapi.io/${anio}-${mes}-${dia}?base=${base}`)
+        .then((respuesta) => respuesta.json())
+        .then((respuestaJSON) => {
+            $('h2').text(`Cambios del día ${respuestaJSON.date} en base ${respuestaJSON.base}`);
+
+            Object.keys(respuestaJSON.rates).forEach((moneda) => {
+                $('thead').append(
+                    `<tr><td>${moneda}</td> <td>${respuestaJSON.rates[moneda]}</td></tr>`
+                );
+            });
+        })
+        .catch((error) => console.error('FALLÓ', error));
+}
+
+function mostrarPantallaCambios() {
+    $('#pantalla-cambio').removeClass('oculto');
+}
+
+function ocultarPantallaFormulario() {
+    $('#pantalla-formulario').addClass('oculto');
+}
+
+function limpiarPantallaCambios() {
+    $('thead').text('');
+}
