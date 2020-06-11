@@ -34,19 +34,18 @@
                     </div>
                     <div class="form-group">
                         <label for="base">En base:</label>
-                        <select class="form-control" id="base">
-                            <option>USD</option>
-                            <option>EUR</option>
-                        </select>
+                        <select class="form-control" id="base"> </select>
                     </div>
                     <button type="button" class="btn btn-primary" id="boton-mostrar">
                         Mostrar
                     </button>
+                    <div id="error"></div>
                 </form>
             </div>
 
             <div id="pantalla-cambio" class="oculto">
                 <h2>Cargando...</h2>
+                <br />
                 <table class="table">
                     <thead>
                         <tr>
@@ -60,7 +59,6 @@
             <div id="pantalla-error" class="oculto"></div>
         </div>
         <script type="text/javascript" src="node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="src/validaciones.js"></script>
         <script src="src/index.js"></script>
     </body>
 </html>

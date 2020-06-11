@@ -8,10 +8,13 @@ $('#boton-mostrar').click(function () {
     const base = $('#base').val();
 
     //TODO: true cambiar por función que haga las validaciones
-    if (true) {
+    if (validarFecha(Number(dia), Number(mes), Number(anio))) {
         limpiarPantallaCambios();
+        $('#error').text('');
         mostrarPantallaCambios();
         mostrarCambios(anio, mes, dia, base);
+    } else {
+        $('#error').text('Esa fecha no existe.');
     }
 });
 
@@ -50,5 +53,45 @@ function ocultarPantallaFormulario() {
 }
 
 function limpiarPantallaCambios() {
+    $('h2').text('');
     $('thead').text('');
+}
+
+function validarFecha(dia, mes, anio) {
+    const fechas = {
+        1: 31,
+        3: 31,
+        4: 30,
+        5: 31,
+        6: 30,
+        7: 31,
+        8: 31,
+        9: 30,
+        10: 31,
+        11: 30,
+        12: 31,
+    };
+    if (esBisiesto(anio)) {
+        fechas[2] = 29;
+    } else {
+        fechas[2] = 28;
+    }
+
+    if (fechas[mes] >= dia) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function esBisiesto(anio) {
+    if (anio % 4 === 0) {
+        if (anio % 100 === 0 && anio % 400 !== 0) {
+            return false;
+        } else {
+            return true;
+        }
+    } else {
+        return false;
+    }
 }
