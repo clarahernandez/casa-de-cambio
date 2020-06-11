@@ -7,7 +7,6 @@ $('#boton-mostrar').click(function () {
     const dia = $('#dia').val();
     const base = $('#base').val();
 
-    //TODO: true cambiar por función que haga las validaciones
     if (validarFecha(Number(dia), Number(mes), Number(anio))) {
         limpiarPantallaCambios();
         $('#error').text('');
