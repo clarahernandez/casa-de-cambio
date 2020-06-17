@@ -21,6 +21,9 @@
     "jquery": "^3.5.1"
   },
   "devDependencies": {
-    "@types/jquery": "^3.3.38"
+    "@types/jquery": "^3.3.38",
+    "eslint": "^7.2.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.21.2"
   }
 }
