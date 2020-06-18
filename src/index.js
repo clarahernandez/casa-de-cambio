@@ -1,48 +1,35 @@
-
-
-document.querySelector('#boton-mostrar').onclick = (() => {
-  const $fecha = document.querySelector('#fecha').value;
-  const $base = document.querySelector('#base').value;
-
-  limpiarPantallaCambios();
-  mostrarPantallaCambios();
-  mostrarCambios($fecha, $base);
-});
-
-function agregarEUR() {
-  const $cambio = document.createElement('option');
-  $cambio.textContent = "EUR";
-  document.querySelector('#base').appendChild($cambio);
+function obtenerCambios(fecha = 'latest', base = 'EUR') {
+  const BASE_URL = 'https://api.exchangeratesapi.io';
+  return fetch(`${BASE_URL}/${fecha}?base=${base}`)
+    .then((respuesta) => respuesta.json())
+    .then((respuestaJSON) => respuestaJSON.rates);
 }
 
-function cargarOpcionesBase() {
-  agregarEUR();
-  fetch('https://api.exchangeratesapi.io/latest')
-    .then((respuesta) => respuesta.json())
-    .then((respuestaJSON) => {
-      Object.keys(respuestaJSON.rates).forEach((moneda) => {
-        const $cambio = document.createElement('option');
-        $cambio.textContent = moneda;
-        document.querySelector('#base').appendChild($cambio);
-      });
-    })
-    .catch((error) => console.error('FALLÓ', error));
+
+function cargarMonedas() {
+  obtenerMonedas().then((cambios) => {
+    Object.keys(cambios).forEach((moneda) => {
+      const $moneda = document.createElement('option');
+      $moneda.textContent = cambios[moneda];
+      document.querySelector('#monedas').add($moneda);
+  })});
+}
+
+function obtenerMonedas() {
+  return obtenerCambios().then((cambios) => Object.keys(cambios).concat('EUR'));
 }
 
 function mostrarCambios(fecha, base) {
-  fetch(`https://api.exchangeratesapi.io/${fecha}?base=${base}`)
-    .then((respuesta) => respuesta.json())
-    .then((respuestaJSON) => {
-      document.querySelector('h2').textContent = `Cambios del día ${respuestaJSON.date} en base ${respuestaJSON.base}`;
-      Object.keys(respuestaJSON.rates).forEach((moneda) => {
-        const $fila = document.createElement('tr');
-        const $moneda = document.createElement('td');
-        const $cambio = document.createElement('td');
-        $moneda.textContent = moneda;
-        $cambio.textContent = respuestaJSON.rates[moneda];
-        $fila.appendChild($moneda);
-        $fila.appendChild($cambio);
-        document.querySelector('thead').appendChild($fila);
+  obtenerCambios(fecha, base).then((cambios) => {
+    Object.keys(cambios).forEach((moneda) => {
+      const $fila = document.createElement('tr');
+      const $moneda = document.createElement('td');
+      const $cambio = document.createElement('td');
+      $moneda.textContent = moneda;
+      $cambio.textContent = cambios[moneda];
+      $fila.appendChild($moneda);
+      $fila.appendChild($cambio);
+      document.querySelector('thead').appendChild($fila);
       });
     });
 }
@@ -74,6 +61,22 @@ function limpiarPantallaCambios() {
 
 function init() {
   limitarFechas();
-  cargarOpcionesBase();
+  cargarMonedas();
 }
+
 init();
+
+document.querySelector('#boton-mostrar').onclick = (() => {
+  const $fecha = document.querySelector('#fecha').value;
+  const $base = document.querySelector('#monedas').value;
+
+  limpiarPantallaCambios();
+  mostrarPantallaCambios();
+  mostrarTitulo($fecha, $base);
+  mostrarCambios($fecha, $base);
+});
+
+
+function mostrarTitulo(fecha, base) {
+  document.querySelector('h2').textContent = `Cambios del día ${fecha} en base ${base}`;
+}
