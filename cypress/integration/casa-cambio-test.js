@@ -15,7 +15,7 @@ context('Casa de Cambio', () => {
     });
     describe('muestra los cambios', () => {
         it('se asegura que se muestra la tabla', () => {
-            cy.get('#dia').type('20-05-2020');
+            cy.get('#fecha').type('2020-05-20');
             cy.get('#boton-mostrar').click();
 
             cy.expect('#pantalla-cambio').to.not.have.class('oculto');
