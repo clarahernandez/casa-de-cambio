@@ -21,8 +21,8 @@ context('Casa de Cambio', () => {
             cy.expect('#pantalla-cambio').to.not.have.class('oculto');
         });
 
-        it('se asegura que se muestren EUR, RUB y BRL', () => {
-            cy.get('thead').contains('EUR');
+        it('se asegura que se muestren CAD, RUB y BRL', () => {
+            cy.get('thead').contains('CAD');
             cy.get('thead').contains('RUB');
             cy.get('thead').contains('BRL');
         });
