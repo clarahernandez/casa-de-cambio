@@ -9,7 +9,14 @@ document.querySelector('#boton-mostrar').onclick = (() => {
   mostrarCambios($fecha, $base);
 });
 
+function agregarEUR() {
+  const $cambio = document.createElement('option');
+  $cambio.textContent = "EUR";
+  document.querySelector('#base').appendChild($cambio);
+}
+
 function cargarOpcionesBase() {
+  agregarEUR();
   fetch('https://api.exchangeratesapi.io/latest')
     .then((respuesta) => respuesta.json())
     .then((respuestaJSON) => {
@@ -27,7 +34,6 @@ function mostrarCambios(fecha, base) {
     .then((respuesta) => respuesta.json())
     .then((respuestaJSON) => {
       document.querySelector('h2').textContent = `Cambios del día ${respuestaJSON.date} en base ${respuestaJSON.base}`;
-
       Object.keys(respuestaJSON.rates).forEach((moneda) => {
         const $fila = document.createElement('tr');
         const $moneda = document.createElement('td');
