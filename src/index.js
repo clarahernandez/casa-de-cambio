@@ -5,7 +5,6 @@ import {
   mostrarPantallaCambios,
   cargarMonedas,
   mostrarCambios,
-  actualizarTitulo,
 } from './ui.js';
 
 function init() {
@@ -19,3 +18,5 @@ document.querySelector('#boton-mostrar').onclick = (() => {
   actualizarTitulo();
   mostrarCambios();
 });
+
+init();
