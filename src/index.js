@@ -7,16 +7,22 @@ import {
   mostrarCambios,
 } from './ui.js';
 
-function init() {
+import { obtenerMonedas, obtenerCambios } from './cambios.js';
+
+async function init() {
   limitarFechas();
-  cargarMonedas();
+  const monedas = await obtenerMonedas();
+  cargarMonedas(monedas);
 }
 
-document.querySelector('#boton-mostrar').onclick = (() => {
+async function apretarBoton() {
   limpiarPantallaCambios();
   mostrarPantallaCambios();
   actualizarTitulo();
-  mostrarCambios();
-});
+  const cambios = await obtenerCambios();
+  mostrarCambios(cambios);
+}
 
 init();
+
+document.querySelector('#boton-mostrar').onclick = apretarBoton;

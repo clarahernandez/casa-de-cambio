@@ -1,5 +1,3 @@
-import { obtenerCambios, obtenerMonedas } from './cambios.js';
-
 export function limitarFechas() {
   const $fecha = document.querySelector('#fecha');
   let hoy = new Date();
@@ -25,30 +23,24 @@ export function mostrarPantallaCambios() {
   document.querySelector('#pantalla-cambio').classList.remove('oculto');
 }
 
-export function cargarMonedas() {
-  obtenerMonedas().then((cambios) => {
-    Object.keys(cambios).forEach((moneda) => {
-      const $moneda = document.createElement('option');
-      $moneda.textContent = cambios[moneda];
-      document.querySelector('#monedas').add($moneda);
-    });
+export function cargarMonedas(monedas) {
+  Object.keys(monedas).forEach((moneda) => {
+    const $moneda = document.createElement('option');
+    $moneda.textContent = monedas[moneda];
+    document.querySelector('#monedas').add($moneda);
   });
 }
 
-export function mostrarCambios() {
-  const $fecha = document.querySelector('#fecha').value;
-  const $base = document.querySelector('#monedas').value;
-  obtenerCambios($fecha, $base).then((cambios) => {
-    Object.keys(cambios).forEach((moneda) => {
-      const $fila = document.createElement('tr');
-      const $moneda = document.createElement('td');
-      const $cambio = document.createElement('td');
-      $moneda.textContent = moneda;
-      $cambio.textContent = cambios[moneda];
-      $fila.appendChild($moneda);
-      $fila.appendChild($cambio);
-      document.querySelector('#pantalla-cambio tbody').appendChild($fila);
-    });
+export function mostrarCambios(cambios) {
+  Object.keys(cambios).forEach((moneda) => {
+    const $fila = document.createElement('tr');
+    const $moneda = document.createElement('td');
+    const $cambio = document.createElement('td');
+    $moneda.textContent = moneda;
+    $cambio.textContent = cambios[moneda];
+    $fila.appendChild($moneda);
+    $fila.appendChild($cambio);
+    document.querySelector('#pantalla-cambio tbody').appendChild($fila);
   });
 }
 
