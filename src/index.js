@@ -1,12 +1,11 @@
-import { obtenerCambios, obtenerMonedas } from './cambios.js';
-
 import {
   limitarFechas,
-  mostrarTitulo,
+  actualizarTitulo,
   limpiarPantallaCambios,
   mostrarPantallaCambios,
   cargarMonedas,
   mostrarCambios,
+  actualizarTitulo,
 } from './ui.js';
 
 function init() {
@@ -14,14 +13,9 @@ function init() {
   cargarMonedas();
 }
 
-init();
-
 document.querySelector('#boton-mostrar').onclick = (() => {
-  const $fecha = document.querySelector('#fecha').value;
-  const $base = document.querySelector('#monedas').value;
-
   limpiarPantallaCambios();
   mostrarPantallaCambios();
-  mostrarTitulo($fecha, $base);
-  mostrarCambios($fecha, $base);
+  actualizarTitulo();
+  mostrarCambios();
 });

@@ -1,3 +1,5 @@
+import { obtenerCambios, obtenerMonedas } from './cambios.js';
+
 export function limitarFechas() {
   const $fecha = document.querySelector('#fecha');
   let hoy = new Date();
@@ -14,13 +16,9 @@ export function limitarFechas() {
   $fecha.setAttribute('max', hoy);
 }
 
-export function mostrarTitulo(fecha, base) {
-  document.querySelector('h2').textContent = `Cambios del día ${fecha} en base ${base}`;
-}
-
 export function limpiarPantallaCambios() {
   document.querySelector('h2').textContent = '';
-  document.querySelector('thead').textContent = '';
+  document.querySelector('tbody').textContent = '';
 }
 
 export function mostrarPantallaCambios() {
@@ -37,8 +35,10 @@ export function cargarMonedas() {
   });
 }
 
-export function mostrarCambios(fecha, base) {
-  obtenerCambios(fecha, base).then((cambios) => {
+export function mostrarCambios() {
+  const $fecha = document.querySelector('#fecha').value;
+  const $base = document.querySelector('#monedas').value;
+  obtenerCambios($fecha, $base).then((cambios) => {
     Object.keys(cambios).forEach((moneda) => {
       const $fila = document.createElement('tr');
       const $moneda = document.createElement('td');
@@ -47,7 +47,14 @@ export function mostrarCambios(fecha, base) {
       $cambio.textContent = cambios[moneda];
       $fila.appendChild($moneda);
       $fila.appendChild($cambio);
-      document.querySelector('thead').appendChild($fila);
+      document.querySelector('#pantalla-cambio tbody').appendChild($fila);
     });
   });
+}
+
+export function actualizarTitulo() {
+  const $fecha = document.querySelector('#fecha').value;
+  const $base = document.querySelector('#monedas').value;
+
+  document.querySelector('h2').textContent = `Cambios del día ${$fecha} en base ${$base}`;
 }
